@@ -2,9 +2,9 @@ import hickle as hkl
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename = 'haberman.txt'
+filename = './przygotowanie hkl\haberman.txt'
 data = np.loadtxt(filename, delimiter=',', dtype=str)
-# Wyciagamy wszystkie cechy z 1,2,3 kolumny i transonujemy aby uzyskac orientacje wierszowa
+# Wyciagamy wszystkie cechy z 1,2,3 kolumny i transonujemy aby uzyskac orientacje kolumnową
 x = data[:,0:-1].astype(float).T
 # wyciagamy wszystkie cechy wynikowe z ostatniej kolumny  
 y_t = data[:,-1].astype(float)
@@ -20,6 +20,7 @@ y_t = y_t.reshape(1,y_t.shape[0])                                               
 
 # wyciagamy najmniejsza wartosc kazdej cechy [30. 58. 0.]
 x_min = x.min(axis=1)
+print(x_min)
 # wyciagamy najwieksza wartosc kazdej cechy [83. 69. 52.]
 x_max = x.max(axis=1)
 # ustalenie min, max po znormalizowaniu 
@@ -49,7 +50,7 @@ y_t_s = np.zeros(y_t.shape)
 for i in range(x.shape[1]):
     y_t_s[0,i] = y_t[0,y_t_s_ind[0,i]]
     x_n_s[:,i] = x_norm[:,y_t_s_ind[0,i]]
-
+# Do pliku dane są zapisane w orientacji kolumnowej kolumna - proba
 plt.plot(y_t_s[0])
 plt.show()
 hkl.dump([x,y_t,x_norm,x_n_s,y_t_s],'haberman.hkl')
