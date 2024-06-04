@@ -45,7 +45,7 @@ for max_features_ind in range(len(max_features_vec)):
                 splitter='random',
                 min_samples_split=2,
                 min_samples_leaf=1,
-                min_weight_fraction_leaf=0.03,
+                min_weight_fraction_leaf=0,
                 max_features=max_features_vec[max_features_ind],
                 max_leaf_nodes=max_leaf_nodes_vec[max_leaf_nodes_ind]
             )

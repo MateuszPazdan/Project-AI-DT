@@ -1,8 +1,9 @@
 import numpy as np
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 import hickle as hkl
 from sklearn.model_selection import StratifiedKFold
 import matplotlib.pyplot as plt
+
 
 # Wczytanie danych z pliku hickle
 x, y_t, x_norm, x_n_s, y_t_s = hkl.load('./badanie_metaparamterow/haberman.hkl')
@@ -17,11 +18,14 @@ x = x_n_s.T
 y_t = np.squeeze(y_t_s)
 
 # Definicja metaparametrów do badania
-min_impurity_decrease_vec = np.linspace(0, 0.2, 10)
-ccp_alpha_vec = np.linspace(0, 0.2, 10)
+min_impurity_decrease_vec = np.linspace(0, 1, 10)
+ccp_alpha_vec = np.linspace(0, 1, 10)
 
 data = x
 target = y_t
+
+print('x', data)
+print('y',target)
 
 # Ustalenie ilości części (foldów) na którą zostaną podzielone dane
 CVN = 10
@@ -36,6 +40,7 @@ for min_impurity_decrease_ind in range(len(min_impurity_decrease_vec)):
         for i, (train, test) in enumerate(skfold.split(data, target), start=0):
             x_train, x_test = data[train], data[test]
             y_train, y_test = target[train], target[test]
+            
 
             # Inicjalizacja klasyfikatora drzewa decyzyjnego z odpowiednimi parametrami.
             decision_tree = DecisionTreeClassifier(
@@ -53,6 +58,9 @@ for min_impurity_decrease_ind in range(len(min_impurity_decrease_vec)):
             )
             decision_tree = decision_tree.fit(x_train, y_train)
             result = decision_tree.predict(x_test)
+
+            if min_impurity_decrease_vec[min_impurity_decrease_ind] == 0:
+                plot_tree(decision_tree)
 
             # Liczba próbek w zbiorze testowym
             n_test_samples = test.size

@@ -23,6 +23,7 @@ x_min = x.min(axis=1)
 print(x_min)
 # wyciagamy najwieksza wartosc kazdej cechy [83. 69. 52.]
 x_max = x.max(axis=1)
+print(x_max)
 # ustalenie min, max po znormalizowaniu 
 x_norm_max = 1
 x_norm_min = -1
@@ -30,9 +31,12 @@ x_norm_min = -1
 # stworzenie tablicy zerowej o takim samym kształcie jak x do przechowywania znormalizowanych danych.
 x_norm = np.zeros(x.shape)
 
+print(x.shape[0])
+
 # sprawdzenie rozpiętoci cech przed normalizacją
 s = np.transpose([np.array(range(x.shape[0])), x.min(axis=1), x.max(axis=1)])
 # print("\n---------------------\n", "Przed normalizacja\n ---------------------\n", s)
+print(s)
 
 # przejscie po kazdym wierszu i znormalizowanie danych do przedzialu <-1, 1>
 for i in range(x.shape[0]):

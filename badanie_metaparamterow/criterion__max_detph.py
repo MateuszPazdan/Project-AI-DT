@@ -54,8 +54,8 @@ for criterion_ind in range(len(criterion_vec)):
             decision_tree = decision_tree.fit(x_train, y_train)
             result = decision_tree.predict(x_test)
 
-            # if max_depth_vec[max_depth_ind] == 1:
-            #    plot_tree(decision_tree)
+            if max_depth_vec[max_depth_ind] == 1:
+               plot_tree(decision_tree)
 
             # Liczba próbek w zbiorze testowym
             n_test_samples = test.size
